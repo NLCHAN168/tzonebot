@@ -1,18 +1,18 @@
 let chaos, baal, tombs;
 
-chaos = "Chaos";
-baal = "Worldstone";
-tombs = "Tal";
+chaos = "chaos";
+baal = "worldstone";
+tombs = "tal";
 
 export default function checkString(string) {
   let newString = string;
   let words = string.split(" ");
   words.forEach((element) => {
-    if (compare(element)) {
-      // newString = string + discordping
+    if (compare(element.toLowerCase()) == true) {
+      newString = string + "*FUNCTION TO PING DISCORD*";
     }
-    return newString;
   });
+  return newString;
 }
 
 function compare(item) {
@@ -20,3 +20,4 @@ function compare(item) {
     return true;
   } else return false;
 }
+//merge functionality with discord client to be able to ping roles
