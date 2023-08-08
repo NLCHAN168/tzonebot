@@ -25,6 +25,6 @@ client.on('ready', () => {
     ).then(({ data: { text } }) => {
       testChannel.send(checkString(text));
     });
-  }}, 1000*45);
+  }}, 1000*60);
 });
 
