@@ -1,10 +1,8 @@
 import {ROLE} from "./tzonebot.js";
 
-let chaos, baal, tombs;
-
-chaos = "chaos";
-baal = "worldstone";
-tombs = "tal";
+let zones = [
+  "chaos", "baal", "tombs"
+];
 
 export default function checkString(string) {
   let newString = string;
@@ -18,7 +16,7 @@ export default function checkString(string) {
 }
 
 function compare(item) {
-  if (item == chaos || item == baal || item == tombs) {
-    return true;
-  } else return false;
+  return zones.includes(item);
 }
+
+///hi///
