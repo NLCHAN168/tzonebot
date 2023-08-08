@@ -5,13 +5,10 @@ import { Client } from "discord.js";
 
 config();
 
-
-
-const client = new Client({intents : ['Guilds', 'GuildMessages']});
+const client = new Client({ intents : ["Guilds", "GuildMessages"]});
 const TOKEN = process.env.DISCORD_TOKEN;
 client.login(TOKEN);
 client.on('ready', () => {
-  //set testChannel to channelID of server
   var testChannel = client.channels.cache.get('842458999865606195');
   console.log("The bot is logged in.");
 
@@ -28,12 +25,10 @@ client.on('ready', () => {
 
 console.log("Guilds:" + client.intents);
 
-Tesseract.recognize(
-  "https://thegodofpumpkin.com/terrorzones/terrorzone.png",
-  "eng",
-  { logger: (m) => console.log(m) }
-).then(({ data: { text } }) => {
-  //convert console log to discord bot message
-  console.log(checkString(text));
-  // console.log(text);
-});
+// Tesseract.recognize(
+//   "https://thegodofpumpkin.com/terrorzones/terrorzone.png",
+//   "eng",
+//   { logger: (m) => console.log(m) }
+// ).then(({ data: { text } }) => {
+//   console.log(checkString(text));
+// });
