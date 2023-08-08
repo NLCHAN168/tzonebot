@@ -1,5 +1,4 @@
-
-let role='1138386480797069312';
+import {ROLE} from "./tzonebot.js";
 
 let chaos, baal, tombs;
 
@@ -12,7 +11,7 @@ export default function checkString(string) {
   let words = string.split(" ");
   words.forEach((element) => {
     if (compare(element.toLowerCase()) == true) {
-      newString = string + `<@&${role}>`;
+      newString = string + `<@&${ROLE}>`;
     }
   });
   return newString;
@@ -23,5 +22,3 @@ function compare(item) {
     return true;
   } else return false;
 }
-
-export {compare} 
