@@ -3,9 +3,6 @@ import checkString from "./zonechecker.js";
 import {config} from "dotenv";
 import { Client } from "discord.js";
 
-let ROLE = process.env.ROLE_ID;
-export {ROLE};
-
 config();
 
 const client = new Client({ intents : ["Guilds", "GuildMessages", "GuildMembers"]});
@@ -17,7 +14,7 @@ client.on('ready', () => {
 
   setInterval(() => {
     const date = new Date();
-    if (date.getMinutes() < 3 && date.getMinutes() > 1) {
+    if (date.getMinutes() < 60 && date.getMinutes() > 0) {
     Tesseract.recognize(
       "https://thegodofpumpkin.com/terrorzones/terrorzone.png",
       "eng",
@@ -25,6 +22,6 @@ client.on('ready', () => {
     ).then(({ data: { text } }) => {
       testChannel.send(checkString(text));
     });
-  }}, 1000*60);
+  }}, 5000);
 });
 
