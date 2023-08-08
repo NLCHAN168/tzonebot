@@ -14,7 +14,7 @@ client.on('ready', () => {
 
   setInterval(() => {
     const date = new Date();
-    if (date.getMinutes() < 60 && date.getMinutes() > 0) {
+    if (date.getMinutes() < 3 && date.getMinutes() > 1) {
     Tesseract.recognize(
       "https://thegodofpumpkin.com/terrorzones/terrorzone.png",
       "eng",
@@ -22,6 +22,6 @@ client.on('ready', () => {
     ).then(({ data: { text } }) => {
       testChannel.send(checkString(text));
     });
-  }}, 5000);
+  }}, 1000*15);
 });
 
