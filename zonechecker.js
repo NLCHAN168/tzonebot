@@ -1,7 +1,7 @@
 import {ROLE} from "./tzonebot.js";
 
 let zones = [
-  "chaos", "baal", "tal"
+  "chaos", "worldstone", "tal"
 ];
 
 export default function checkString(string) {
