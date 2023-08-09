@@ -1,7 +1,7 @@
 import {ROLE} from "./tzonebot.js";
 
 let zones = [
-  "chaos", "baal", "tombs"
+  "chaos", "baal", "tal"
 ];
 
 export default function checkString(string) {
@@ -19,4 +19,3 @@ function compare(item) {
   return zones.includes(item);
 }
 
-///hi///
