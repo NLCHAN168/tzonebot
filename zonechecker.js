@@ -2,13 +2,9 @@ let zones = ["chaos", "worldstone", "tal"];
 
 export default function checkString(string) {
   let words = string.split(" ");
-  words.forEach((element) => {
-    if (compare(element.toLowerCase()) == true) {
+  for (let i = 0; i < words.length; i++) {
+    if (zones.includes(words[i].toLowerCase())) {
       return true;
     }
-  });
-}
-
-function compare(item) {
-  return zones.includes(item);
+  }
 }

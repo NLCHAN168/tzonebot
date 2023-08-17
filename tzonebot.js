@@ -28,7 +28,7 @@ client.on("ready", () => {
           "eng",
           { logger: (m) => console.log(m) }
         ).then(({ data: { text } }) => {
-          if (checkString(text)) {
+          if (checkString(text) == true) {
             testChannel.send(text + `<@&${server.role}>`);
           } else {
             testChannel.send(text);
@@ -36,5 +36,5 @@ client.on("ready", () => {
         });
       }
     }
-  }, 1000 * 60);
+  }, 6000);
 });
