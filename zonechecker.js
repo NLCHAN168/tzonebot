@@ -1,21 +1,14 @@
-import {ROLE} from "./tzonebot.js";
-
-let zones = [
-  "chaos", "worldstone", "tal"
-];
+let zones = ["chaos", "worldstone", "tal"];
 
 export default function checkString(string) {
-  let newString = string;
   let words = string.split(" ");
   words.forEach((element) => {
     if (compare(element.toLowerCase()) == true) {
-      newString = string + `<@&${ROLE}>`;
+      return true;
     }
   });
-  return newString;
 }
 
 function compare(item) {
   return zones.includes(item);
 }
-
