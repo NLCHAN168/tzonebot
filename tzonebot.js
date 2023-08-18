@@ -6,6 +6,7 @@ import { Client } from "discord.js";
 let servers = [
   { channel: "1051976164270415912", role: "1117864929567973439" },
   { channel: "1141921595032621098", role: "1141921221953454180" },
+  { channel: "1141983532286230538", role: "1141984267790987264" },
 ];
 
 config();
