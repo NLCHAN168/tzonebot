@@ -4,8 +4,8 @@ import { config } from "dotenv";
 import { Client } from "discord.js";
 
 let servers = [
-  { channel: "1141629037836509234", role: "1141629139783254047" },
-  { channel: "842458999865606195", role: "1138386480797069312" },
+  { channel: "1051976164270415912", role: "1117864929567973439" },
+  { channel: "1141921595032621098", role: "1141921221953454180" },
 ];
 
 config();
