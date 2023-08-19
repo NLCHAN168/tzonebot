@@ -4,11 +4,22 @@ import { config } from "dotenv";
 import { Client } from "discord.js";
 
 let servers = [
-  { channel: "1051976164270415912", role: "1117864929567973439" },
-  { channel: "1141921595032621098", role: "1141921221953454180" },
-  { channel: "1141983532286230538", role: "1141984267790987264" },
+  {
+    server: "d2rpvp",
+    channel: "1051976164270415912",
+    role: "1117864929567973439",
+  },
+  {
+    server: "heidi",
+    channel: "1141921595032621098",
+    role: "1141921221953454180",
+  },
+  {
+    server: "d2g",
+    channel: "1141983532286230538",
+    role: "1141984267790987264",
+  },
 ];
-
 config();
 
 const client = new Client({
@@ -21,7 +32,7 @@ client.on("ready", () => {
 
   setInterval(() => {
     const date = new Date();
-    if (date.getMinutes() == 2) {
+    if (date.getMinutes() == 9 && date.getSeconds() == 0) {
       for (let server of servers) {
         let testChannel = client.channels.cache.get(server.channel);
         Tesseract.recognize(
@@ -39,5 +50,5 @@ client.on("ready", () => {
         });
       }
     }
-  }, 60 * 1000);
+  }, 1000);
 });
