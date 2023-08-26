@@ -22,7 +22,7 @@ let servers = [
   {
     server: "gentlemen's club",
     channel: "1144903900734947430",
-    role: "1144903900734947430",
+    role: "1144904683358531634",
   },
 ];
 config();
