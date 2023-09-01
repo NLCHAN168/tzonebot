@@ -44,17 +44,21 @@ client.on("ready", () => {
           "https://thegodofpumpkin.com/terrorzones/terrorzone.png",
           "eng",
           { logger: (m) => console.log(m) }
-        ).then(({ data: { text } }) => {
-          if (checkString(text) == true) {
-            testChannel.send(text + `<@&${server.role}>`).catch((e) => {
-              console.log(e);
-            });
-          } else {
-            testChannel.send(text).catch((e) => {
-              console.log(e);
-            });
-          }
-        });
+        )
+          .then(({ data: { text } }) => {
+            if (checkString(text) == true) {
+              testChannel.send(text + `<@&${server.role}>`).catch((e) => {
+                console.log(e);
+              });
+            } else {
+              testChannel.send(text).catch((e) => {
+                console.log(e);
+              });
+            }
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       }
     }
   }, 1000);
