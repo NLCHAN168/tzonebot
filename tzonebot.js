@@ -50,7 +50,9 @@ client.on("ready", () => {
               console.log(e);
             });
           } else {
-            testChannel.send(text);
+            testChannel.send(text).catch((e) => {
+              console.log(e);
+            });
           }
         });
       }
