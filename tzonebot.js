@@ -37,7 +37,7 @@ client.on("ready", () => {
 
   setInterval(() => {
     const date = new Date();
-    if (date.getMinutes() == 0 && date.getSeconds() == 59) {
+    if (date.getMinutes() == 1 && date.getSeconds() == 45) {
       for (let server of servers) {
         let testChannel = client.channels.cache.get(server.channel);
         Tesseract.recognize(
