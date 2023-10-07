@@ -206,7 +206,7 @@ client.on("ready", () => {
 
   setInterval(() => {
     const date = new Date();
-    if (date.getMinutes() == 10 && date.getSeconds() == 0) {
+    if (date.getMinutes() == 0 && date.getSeconds() == 0) {
       for (let server of servers) {
         let testChannel = client.channels.cache.get(server.channel);
         fetch("https://www.d2emu.com/api/v1/tz").then((res) =>
