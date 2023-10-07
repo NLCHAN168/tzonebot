@@ -148,7 +148,8 @@ let all_areas = [
   [135, "Furnace of Pain"],
   [136, "Tristram"],
 ];
-let current, next;
+let areas = [];
+let string, current, next;
 
 config();
 const client = new Client({
@@ -161,52 +162,41 @@ client.on("ready", () => {
 
   setInterval(() => {
     const date = new Date();
-    // if (date.getMinutes() == 0 && date.getSeconds() == 0) {
-    if (date.getMinutes() < 99) {
+    // if (date.getMinutes() == 52 && date.getSeconds() == 30) {
+      if (date.getMinutes() < 99) {
+
       for (let server of servers) {
         let testChannel = client.channels.cache.get(server.channel);
         fetch("https://www.d2emu.com/api/v1/tz").then((res) =>
           res.json().then((bod) => {
             console.log(bod);
-            current = "";
-            next = "";
+            string = "";
+            current = "Current Terror Zone(s): {";
+            next = "Next Terror Zone(s): {";
             for (let zone of bod.current) {
-              current += all_areas[zone][1] + ", ";
+              areas.push(all_areas[zone][1]);
+              current = areas.join(" / ");
             }
             for (let zone of bod.next) {
-              next += all_areas[zone][1] + ", ";
+              areas.push(all_areas[zone][1]);
+              next = areas.join(" / ");
             }
+            string = current + "\n" + next;
             if (
               bod.next.includes("66") ||
               bod.next.includes("108") ||
               bod.next.includes("128")
             ) {
-              testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  "\nNext Terror Zone(s): " +
-                  next +
-                  `<@&${server.role}>`
-              );
+              testChannel.send(string + `<@&${server.role}>` + "}");
             } else if (
               bod.current.includes("66") ||
               bod.current.includes("108") ||
               bod.current.includes("128")
             ) {
               testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  `<@&${server.role}>` +
-                  "\nNext Terror Zone(s): " +
-                  next
-              );
+                string + `<@&${server.role}>` + "}");
             } else {
-              testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  "\nNext Terror Zone(s): " +
-                  next
-              );
+              testChannel.send(string);
             }
           })
         );
