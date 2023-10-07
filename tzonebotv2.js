@@ -219,7 +219,7 @@ client.on("ready", () => {
               console.log(bod);
               let areas = [];
               string = "";
-              current = "**Current Terror Zone(s)** [ ";
+              current = "**Current Terror Zone(s):** [ ";
               next = "**Next Terror Zone(s):** [ ";
               for (let zone of bod.current) {
                 areas.push(all_areas[zone][1]);
