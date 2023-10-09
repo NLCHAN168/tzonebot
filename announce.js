@@ -194,6 +194,7 @@ export default function announce() {
           }
         )
       );
+      console.log("all servers announced");
     }
     nextZones = newNext;
   }, 5000);
