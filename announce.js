@@ -196,6 +196,7 @@ export default function announce() {
                 console.log("Announced in server: " + server.server);
               }
             }
+            nextZones = newNext;
           }
         }
       )
