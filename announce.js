@@ -187,8 +187,10 @@ export default function announce() {
               string += current + "\n" + next + "```";
               if (bod.next.some(compare) || bod.current.some(compare)) {
                 sendMessage(testChannel, string + `<@&${server.role}>`);
+                console.log("Announced in server: " + server.server);
               } else {
                 sendMessage(testChannel, string);
+                console.log("Announced in server: " + server.server);
               }
             }
           }
