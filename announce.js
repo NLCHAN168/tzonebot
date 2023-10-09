@@ -183,12 +183,14 @@ export default function announce() {
             }
             next += areas.join(" / ") + " ] ";
             string += current + "\n" + next + "```";
-            for (let server of servers) {
-              let testChannel = client.channels.cache.get(server.channel);
-              if (bod.next.some(compare) || bod.current.some(compare)) {
+            let testChannel = client.channels.cache.get(server.channel);
+            if (bod.next.some(compare) || bod.current.some(compare)) {
+              for (let server of servers) {
                 sendMessage(testChannel, string + `<@&${server.role}>`);
                 console.log("Announced in server: " + server.server);
-              } else {
+              }
+            } else {
+              for (let server of servers) {
                 sendMessage(testChannel, string);
                 console.log("Announced in server: " + server.server);
               }
