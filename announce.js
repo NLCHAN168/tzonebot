@@ -170,7 +170,6 @@ export default function announce() {
           (bod) => {
             newNext = bod.next.toString();
             if (nextZones.toString() !== newNext.toString()) {
-              nextZones = newNext;
               console.log(bod);
               let areas = [];
               string = "";
@@ -196,5 +195,6 @@ export default function announce() {
         )
       );
     }
+    nextZones = newNext;
   }, 5000);
 }
