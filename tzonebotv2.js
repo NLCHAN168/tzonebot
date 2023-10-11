@@ -57,59 +57,7 @@ const TOKEN = process.env.DISCORD_TOKEN;
 client.login(TOKEN).catch((e) => console.error(e));
 client.on("ready", () => {
   console.log("The bot is logged in.");
-
-  setInterval(() => {
-    const date = new Date();
-    // if (date.getMinutes() == 0 && date.getSeconds() == 0) {
-    if (date.getMinutes() < 99) {
-      for (let server of servers) {
-        let testChannel = client.channels.cache.get(server.channel);
-        fetch("https://www.d2emu.com/api/v1/tz").then((res) =>
-          res.json().then((bod) => {
-            console.log(bod);
-            current = "";
-            next = "";
-            for (let zone of bod.current) {
-              current += all_areas[zone][1] + ", ";
-            }
-            for (let zone of bod.next) {
-              next += all_areas[zone][1] + ", ";
-            }
-            if (
-              bod.next.includes("66") ||
-              bod.next.includes("108") ||
-              bod.next.includes("128")
-            ) {
-              testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  "\nNext Terror Zone(s): " +
-                  next +
-                  `<@&${server.role}>`
-              );
-            } else if (
-              bod.current.includes("66") ||
-              bod.current.includes("108") ||
-              bod.current.includes("128")
-            ) {
-              testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  `<@&${server.role}>` +
-                  "\nNext Terror Zone(s): " +
-                  next
-              );
-            } else {
-              testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  "\nNext Terror Zone(s): " +
-                  next
-              );
-            }
-          })
-        );
-      }
-    }
-  }, 1000);
+  setTimeout(announce, 3.6e6 - (new Date().getTime() % 3.6e6));
 });
+
+export { servers, client, config };
