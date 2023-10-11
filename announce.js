@@ -1,13 +1,5 @@
-import { config } from "dotenv";
-import { Client } from "discord.js";
-
-let servers = [
-  {
-    server: "Chantastic's Server",
-    channel: "842458999865606195",
-    role: "1141629139783254047",
-  },
-];
+import { servers, client } from "./tzonebotv2.js";
+import * as Discord from "discord.js";
 
 let all_areas = [
   [0, "None"],
@@ -49,7 +41,7 @@ let all_areas = [
   [36, "Catacombs Level 3"],
   [37, "Catacombs Level 4"],
   [38, "Tristram"],
-  [39, "Moo Moo Farm"],
+  [39, "The Secret Cow Level"],
   [40, "Lut Gholein"],
   [41, "Rocky Waste"],
   [42, "Dry Hills"],
@@ -148,69 +140,66 @@ let all_areas = [
   [135, "Furnace of Pain"],
   [136, "Tristram"],
 ];
-let current, next;
+let pingzones = ["66", "108", "128"];
+let string,
+  current,
+  next,
+  nextZones = [],
+  newNext = [];
 
-config();
-const client = new Client({
-  intents: ["Guilds", "GuildMessages", "GuildMembers"],
-});
-const TOKEN = process.env.DISCORD_TOKEN;
-client.login(TOKEN);
-client.on("ready", () => {
-  console.log("The bot is logged in.");
+function compare(e) {
+  return pingzones.includes(e);
+}
 
+function sendMessage(channel, message) {
+  if (!channel || !(channel instanceof Discord.TextChannel))
+    throw new Error("Channel is not a TextChannel or not found");
+  channel.send(message).catch((e) => console.error(e));
+}
+
+export default function announce() {
   setInterval(() => {
-    const date = new Date();
-    // if (date.getMinutes() == 0 && date.getSeconds() == 0) {
-    if (date.getMinutes() < 99) {
-      for (let server of servers) {
-        let testChannel = client.channels.cache.get(server.channel);
-        fetch("https://www.d2emu.com/api/v1/tz").then((res) =>
-          res.json().then((bod) => {
+    fetch("https://www.d2emu.com/api/v1/tz").then((res) =>
+      res.json().then(
+        /**
+         * @function
+         * @param {BodObject} bod - Object representing the fetch request as json obj.
+         */
+        (bod) => {
+          newNext = bod.next.toString();
+          if (nextZones.toString() !== newNext.toString()) {
             console.log(bod);
-            current = "";
-            next = "";
+            let areas = [];
+            string = "";
+            current = "```Current Terror Zone(s): [ ";
+            next = "Next Terror Zone(s): [ ";
             for (let zone of bod.current) {
-              current += all_areas[zone][1] + ", ";
+              areas.push(all_areas[zone][1]);
             }
+            current += areas.join(" / ") + " ] ";
+            areas = [];
             for (let zone of bod.next) {
-              next += all_areas[zone][1] + ", ";
+              areas.push(all_areas[zone][1]);
             }
-            if (
-              bod.next.includes("66") ||
-              bod.next.includes("108") ||
-              bod.next.includes("128")
-            ) {
-              testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  "\nNext Terror Zone(s): " +
-                  next +
-                  `<@&${server.role}>`
-              );
-            } else if (
-              bod.current.includes("66") ||
-              bod.current.includes("108") ||
-              bod.current.includes("128")
-            ) {
-              testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  `<@&${server.role}>` +
-                  "\nNext Terror Zone(s): " +
-                  next
-              );
+            next += areas.join(" / ") + " ] ";
+            string += current + "\n" + next + "```";
+            if (bod.next.some(compare) || bod.current.some(compare)) {
+              for (let server of servers) {
+                let testChannel = client.channels.cache.get(server.channel);
+                sendMessage(testChannel, string + `<@&${server.role}>`);
+                console.log("Announced in server: " + server.server);
+              }
             } else {
-              testChannel.send(
-                "Current Terror Zone(s): " +
-                  current +
-                  "\nNext Terror Zone(s): " +
-                  next
-              );
+              for (let server of servers) {
+                let testChannel = client.channels.cache.get(server.channel);
+                sendMessage(testChannel, string);
+                console.log("Announced in server: " + server.server);
+              }
             }
-          })
-        );
-      }
-    }
-  }, 1000);
-});
+            nextZones = newNext;
+          }
+        }
+      )
+    );
+  }, 5000);
+}

@@ -2,7 +2,7 @@
   "name": "tzone-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "tzonebot.js",
+  "main": "tzonebotv2.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "--config webpack.conf.js"
@@ -16,5 +16,6 @@
     "discord.js": "^14.12.1",
     "dotenv": "^16.3.1",
     "tesseract.js": "^4.1.1"
-  }
+  },
+  "nodeVersion": "18.16.0"  
 }
