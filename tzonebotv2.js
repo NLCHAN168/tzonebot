@@ -41,6 +41,11 @@ let servers = [
     channel: "1118637090532491418",
     role: "",
   },
+  {
+    server: "D2R Auction/Trading",
+    channel: "1147575529181036645",
+    role: "",
+  },
 ];
 
 /**
