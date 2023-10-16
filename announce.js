@@ -153,7 +153,9 @@ function compare(e) {
 
 function sendMessage(server, channel, message) {
   if (!channel || !(channel instanceof Discord.TextChannel)) {
-    console.log("Error: channel does not exist or lacks permission");
+    console.log(
+      "Error: channel does not exist or lacks permission in " + server
+    );
     return;
   }
   channel.send(message).catch((e) => console.error(e));
