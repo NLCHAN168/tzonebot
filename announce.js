@@ -200,6 +200,6 @@ export default function announce() {
           }
         }
       )
-    );
-  }, 5000);
+    ).catch((e) => console.log(e));
+  }, 15000);
 }
