@@ -151,10 +151,13 @@ function compare(e) {
   return pingzones.includes(e);
 }
 
-function sendMessage(channel, message) {
-  if (!channel || !(channel instanceof Discord.TextChannel))
-    throw new Error("Channel is not a TextChannel or not found");
+function sendMessage(server, channel, message) {
+  if (!channel || !(channel instanceof Discord.TextChannel)) {
+    console.log("Error: channel does not exist or lacks permission");
+    return;
+  }
   channel.send(message).catch((e) => console.error(e));
+  console.log("Announced in server: " + server);
 }
 
 export default function announce() {
@@ -187,14 +190,16 @@ export default function announce() {
               if (bod.next.some(compare) || bod.current.some(compare)) {
                 for (let server of servers) {
                   let testChannel = client.channels.cache.get(server.channel);
-                  sendMessage(testChannel, string + `<@&${server.role}>`);
-                  console.log("Announced in server: " + server.server);
+                  sendMessage(
+                    server.server,
+                    testChannel,
+                    string + `<@&${server.role}>`
+                  );
                 }
               } else {
                 for (let server of servers) {
                   let testChannel = client.channels.cache.get(server.channel);
-                  sendMessage(testChannel, string);
-                  console.log("Announced in server: " + server.server);
+                  sendMessage(server.server, testChannel, string);
                 }
               }
               nextZones = newNext;
