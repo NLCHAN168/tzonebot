@@ -159,47 +159,49 @@ function sendMessage(channel, message) {
 
 export default function announce() {
   setInterval(() => {
-    fetch("https://www.d2emu.com/api/v1/tz").then((res) =>
-      res.json().then(
-        /**
-         * @function
-         * @param {BodObject} bod - Object representing the fetch request as json obj.
-         */
-        (bod) => {
-          newNext = bod.next.toString();
-          if (nextZones.toString() !== newNext.toString()) {
-            console.log(bod);
-            let areas = [];
-            string = "";
-            current = "```Current Terror Zone(s): [ ";
-            next = "Next Terror Zone(s): [ ";
-            for (let zone of bod.current) {
-              areas.push(all_areas[zone][1]);
-            }
-            current += areas.join(" / ") + " ] ";
-            areas = [];
-            for (let zone of bod.next) {
-              areas.push(all_areas[zone][1]);
-            }
-            next += areas.join(" / ") + " ] ";
-            string += current + "\n" + next + "```";
-            if (bod.next.some(compare) || bod.current.some(compare)) {
-              for (let server of servers) {
-                let testChannel = client.channels.cache.get(server.channel);
-                sendMessage(testChannel, string + `<@&${server.role}>`);
-                console.log("Announced in server: " + server.server);
+    fetch("https://www.d2emu.com/api/v1/tz")
+      .then((res) =>
+        res.json().then(
+          /**
+           * @function
+           * @param {BodObject} bod - Object representing the fetch request as json obj.
+           */
+          (bod) => {
+            newNext = bod.next.toString();
+            if (nextZones.toString() !== newNext.toString()) {
+              console.log(bod);
+              let areas = [];
+              string = "";
+              current = "```Current Terror Zone(s): [ ";
+              next = "Next Terror Zone(s): [ ";
+              for (let zone of bod.current) {
+                areas.push(all_areas[zone][1]);
               }
-            } else {
-              for (let server of servers) {
-                let testChannel = client.channels.cache.get(server.channel);
-                sendMessage(testChannel, string);
-                console.log("Announced in server: " + server.server);
+              current += areas.join(" / ") + " ] ";
+              areas = [];
+              for (let zone of bod.next) {
+                areas.push(all_areas[zone][1]);
               }
+              next += areas.join(" / ") + " ] ";
+              string += current + "\n" + next + "```";
+              if (bod.next.some(compare) || bod.current.some(compare)) {
+                for (let server of servers) {
+                  let testChannel = client.channels.cache.get(server.channel);
+                  sendMessage(testChannel, string + `<@&${server.role}>`);
+                  console.log("Announced in server: " + server.server);
+                }
+              } else {
+                for (let server of servers) {
+                  let testChannel = client.channels.cache.get(server.channel);
+                  sendMessage(testChannel, string);
+                  console.log("Announced in server: " + server.server);
+                }
+              }
+              nextZones = newNext;
             }
-            nextZones = newNext;
           }
-        }
+        )
       )
-    ).catch((e) => console.log(e));
+      .catch((e) => console.log(e));
   }, 15000);
 }
