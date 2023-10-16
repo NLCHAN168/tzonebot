@@ -37,7 +37,7 @@ let servers = [
     role: "1144928703076376576",
   },
   {
-    server: "",
+    server: "rvi-andalf",
     channel: "1118637090532491418",
     role: "",
   },
