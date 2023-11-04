@@ -36,11 +36,11 @@ let servers = [
     channel: "1144903900734947430",
     role: "1144928703076376576",
   },
-  {
-    server: "rvi-andalf",
-    channel: "1118637090532491418",
-    role: "",
-  },
+  // {
+  //   server: "rvi-andalf",
+  //   channel: "1118637090532491418",
+  //   role: "",
+  // },
   {
     server: "D2R Auction/Trading",
     channel: "1147575529181036645",
